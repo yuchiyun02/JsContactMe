@@ -1,6 +1,22 @@
 let contacts = [];
 let contId = 1;
 
+function load() {
+    const data = localStorage.getItem("contacts");
+
+    contacts = data 
+    ? JSON.parse(data) 
+    : [];
+
+    contId = contacts.length > 0
+    ? Math.max(...contacts.map(c => c.id)) + 1
+    : 1;
+}
+
+function save() {
+  localStorage.setItem("contacts", JSON.stringify(contacts));
+}
+
 export function addContact(name, phone, email) {
     const contact = {
         id : contId++,
@@ -10,6 +26,7 @@ export function addContact(name, phone, email) {
     }
 
     contacts.push(contact); //latest first
+    save();
 }
 
 export function getContacts() {
@@ -18,6 +35,7 @@ export function getContacts() {
 
 export function deleteContact(id) {
     contacts = contacts.filter(contact => contact.id !== id);
+    save();
 }
 
 export function searchContacts(query) {
@@ -30,3 +48,5 @@ export function searchContacts(query) {
         contact.name.toLowerCase().includes(lowerQuery)
     );
 }
+
+load();
