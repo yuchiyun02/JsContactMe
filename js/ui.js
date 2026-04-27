@@ -10,7 +10,7 @@ export function renderContacts(list, onDelete) {
         <td>${contact.name}</td>
         <td>${contact.phone}</td>
         <td>${contact.email}</td>
-        <td><button data-id="${contact.id}">Delete</button></td>
+        <td><button class="cancel-btn" data-id="${contact.id}">Delete</button></td>
         `;
 
         tr.querySelector("button").onclick = () => onDelete(contact.id);
