@@ -12,15 +12,13 @@
         <p>"Just Contact Me" - A simple contact manager built in JavaScript</p>
 
         <div class="toolbar">
+            <div class="search">
+                <input type="text" id="search" placeholder="Search by name">
+            </div>
             <button id="openModalBtn">Add Contact</button>
         </div>
 
-        <!-- Search -->
-        <div class="search">
-            <input type="text" id="search" placeholder="Search by name">
-        </div>
-
-        <!-- Contact List -->
+        <!-- Contact Table -->
         <table>
             <thead>
             <tr>
@@ -45,7 +43,7 @@
                 <input type="email" id="email" placeholder="Email">
             </div>
             <div class="modal-actions">
-                <button id="closeModalBtn" class="cancel-btn">Cancel</button>
+                <button id="closeModalBtn" class="secondary-btn">Cancel</button>
                 <button id="addBtn">Save Contact</button>
             </div>
         </div>
