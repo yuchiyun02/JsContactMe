@@ -9,11 +9,25 @@ function init() {
 }
 
 function handleAdd() {
+    const name = getElementById("name").value.trim();
+    const phone = getElementById("phone").value.trim();
+    const email = getElementById("email").value.trim();
 
+    if (!name || !phone || !email) {
+        alert("Please enter all fields")
+        return;
+    }
+
+    document.getElementById("name").value = "";
+    document.getElementById("phone").value = "";
+    document.getElementById("email").value = "";
+
+    addContact(name, phone, email);
+    updateUI();
 }
 
 function handleSearch() {
-
+    
 }
 
 function handleDelete(id){
