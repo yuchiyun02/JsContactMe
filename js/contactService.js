@@ -14,7 +14,7 @@ function load() {
 }
 
 function save() {
-  localStorage.setItem("contacts", JSON.stringify(contacts));
+    localStorage.setItem("contacts", JSON.stringify(contacts));
 }
 
 export function addContact(name, phone, email) {

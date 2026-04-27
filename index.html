@@ -11,12 +11,8 @@
         <h1>JsContactMe</h1>
         <p>"Just Contact Me" - A simple contact manager built in JavaScript</p>
 
-        <!-- Add Contact -->
-        <div class="form">
-            <input type="text" id="name" placeholder="Name">
-            <input type="text" id="phone" placeholder="Phone">
-            <input type="email" id="email" placeholder="Email">
-            <button id="addBtn">Add Contact</button>
+        <div class="toolbar">
+            <button id="openModalBtn">Add Contact</button>
         </div>
 
         <!-- Search -->
@@ -37,6 +33,22 @@
             </thead>
             <tbody id="contactList"></tbody>
         </table>
+    </div>
+
+    <div class="modal hidden" id="contactModal">
+        <div class="modal-backdrop" id="modalBackdrop"></div>
+        <div class="modal-content" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+            <h2 id="modalTitle">Add Contact</h2>
+            <div class="form">
+                <input type="text" id="name" placeholder="Name">
+                <input type="text" id="phone" placeholder="Phone">
+                <input type="email" id="email" placeholder="Email">
+            </div>
+            <div class="modal-actions">
+                <button id="closeModalBtn" class="cancel-btn">Cancel</button>
+                <button id="addBtn">Save Contact</button>
+            </div>
+        </div>
     </div>
 </body>
 </html>

@@ -1,33 +1,42 @@
-import { addContact, getContacts, deleteContact, searchContacts } from "./contactService.js";
-import { renderContacts } from "./ui.js";
+import { 
+    addContact, 
+    getContacts, 
+    deleteContact, 
+    searchContacts 
+} from "./contactService.js";
+import {
+    renderContacts,
+    openContactModal,
+    closeContactModal,
+    getContactFormValues,
+    getSearchQuery
+} from "./ui.js";
 
 function init() {
-  document.getElementById("addBtn").onclick = handleAdd;
-  document.getElementById("search").oninput = handleSearch;
+    document.getElementById("openModalBtn").onclick = openContactModal;
+    document.getElementById("closeModalBtn").onclick = closeContactModal;
+    document.getElementById("modalBackdrop").onclick = closeContactModal;
+    document.getElementById("addBtn").onclick = handleAdd;
+    document.getElementById("search").oninput = handleSearch;
 
-  updateUI();
+    updateUI();
 }
 
 function handleAdd() {
-    const name = document.getElementById("name").value.trim();
-    const phone = document.getElementById("phone").value.trim();
-    const email = document.getElementById("email").value.trim();
+    const { name, phone, email } = getContactFormValues();
 
     if (!name || !phone || !email) {
         alert("Please enter all fields")
         return;
     }
 
-    document.getElementById("name").value = "";
-    document.getElementById("phone").value = "";
-    document.getElementById("email").value = "";
-
     addContact(name, phone, email);
+    closeContactModal();
     updateUI();
 }
 
 function handleSearch() {
-    const query = document.getElementById("search").value.trim();
+    const query = getSearchQuery();
     renderContacts(searchContacts(query), handleDelete);
 }
 
