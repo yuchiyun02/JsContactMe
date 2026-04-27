@@ -9,9 +9,9 @@ function init() {
 }
 
 function handleAdd() {
-    const name = getElementById("name").value.trim();
-    const phone = getElementById("phone").value.trim();
-    const email = getElementById("email").value.trim();
+    const name = document.getElementById("name").value.trim();
+    const phone = document.getElementById("phone").value.trim();
+    const email = document.getElementById("email").value.trim();
 
     if (!name || !phone || !email) {
         alert("Please enter all fields")
@@ -27,7 +27,8 @@ function handleAdd() {
 }
 
 function handleSearch() {
-    
+    const query = document.getElementById("search").value.trim();
+    renderContacts(searchContacts(query), handleDelete);
 }
 
 function handleDelete(id){
@@ -38,3 +39,5 @@ function handleDelete(id){
 function updateUI() {
     renderContacts(getContacts(), handleDelete);
 }
+
+init();

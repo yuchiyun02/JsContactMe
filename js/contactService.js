@@ -17,9 +17,16 @@ export function getContacts() {
 }
 
 export function deleteContact(id) {
-
+    contacts = contacts.filter(contact => contact.id !== id);
 }
 
-export function searchContact(query) {
+export function searchContacts(query) {
+    if (!query) {
+        return contacts;
+    }
 
+    const lowerQuery = query.toLowerCase();
+    return contacts.filter(contact =>
+        contact.name.toLowerCase().includes(lowerQuery)
+    );
 }
