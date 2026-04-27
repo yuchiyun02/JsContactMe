@@ -12,7 +12,7 @@ export function addContact(name, phone, email) {
     contacts.push(contact); //latest first
 }
 
-export function getContact() {
+export function getContacts() {
     return contacts;
 }
 
