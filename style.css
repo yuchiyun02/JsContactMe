@@ -102,13 +102,22 @@ button:hover {
     background: #bcccdc;
 }
 
+.edit-btn {
+    background: #dbeafe;
+    color: #1d4ed8;
+}
+
+.edit-btn:hover {
+    background: #bfdbfe;
+}
+
 .cancel-btn {
-  background: #f8d7da;
-  color: #842029;
+    background: #f8d7da;
+    color: #842029;
 }
 
 .cancel-btn:hover {
-  background: #f1aeb5;
+    background: #f1aeb5;
 }
 
 table {
@@ -122,6 +131,20 @@ td {
     padding: 14px;
     text-align: center;
     border-bottom: 1px solid #e5e7eb;
+}
+
+.action-cell {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+}
+
+.icon-btn {
+    width: 40px;
+    min-width: 40px;
+    padding: 10px 0;
+    font-size: 18px;
+    line-height: 1;
 }
 
 .modal {

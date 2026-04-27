@@ -33,8 +33,25 @@ export function getContacts() {
     return contacts;
 }
 
+export function getContactById(id) {
+    return contacts.find(contact => contact.id === id);
+}
+
 export function deleteContact(id) {
     contacts = contacts.filter(contact => contact.id !== id);
+    save();
+}
+
+export function updateContact(id, name, phone, email) {
+    const contact = contacts.find(item => item.id === id);
+
+    if (!contact) {
+        return;
+    }
+
+    contact.name = name;
+    contact.phone = phone;
+    contact.email = email;
     save();
 }
 

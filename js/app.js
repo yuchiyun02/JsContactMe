@@ -1,25 +1,40 @@
 import { 
     addContact, 
+    getContactById,
     getContacts, 
     deleteContact, 
+    updateContact,
     searchContacts 
 } from "./contactService.js";
 import {
     renderContacts,
     openContactModal,
+    openEditContactModal,
     closeContactModal,
     getContactFormValues,
     getSearchQuery
 } from "./ui.js";
 
+let editingContactId = null;
+
 function init() {
-    document.getElementById("openModalBtn").onclick = openContactModal;
-    document.getElementById("closeModalBtn").onclick = closeContactModal;
-    document.getElementById("modalBackdrop").onclick = closeContactModal;
+    document.getElementById("openModalBtn").onclick = handleOpenAddModal;
+    document.getElementById("closeModalBtn").onclick = handleCloseModal;
+    document.getElementById("modalBackdrop").onclick = handleCloseModal;
     document.getElementById("addBtn").onclick = handleAdd;
     document.getElementById("search").oninput = handleSearch;
 
     updateUI();
+}
+
+function handleOpenAddModal() {
+    editingContactId = null;
+    openContactModal();
+}
+
+function handleCloseModal() {
+    editingContactId = null;
+    closeContactModal();
 }
 
 function handleAdd() {
@@ -30,14 +45,30 @@ function handleAdd() {
         return;
     }
 
-    addContact(name, phone, email);
-    closeContactModal();
+    if (editingContactId !== null) {
+        updateContact(editingContactId, name, phone, email);
+    } else {
+        addContact(name, phone, email);
+    }
+
+    handleCloseModal();
     updateUI();
 }
 
 function handleSearch() {
     const query = getSearchQuery();
-    renderContacts(searchContacts(query), handleDelete);
+    renderContacts(searchContacts(query), handleEdit, handleDelete);
+}
+
+function handleEdit(id) {
+    const contact = getContactById(id);
+
+    if (!contact) {
+        return;
+    }
+
+    editingContactId = id;
+    openEditContactModal(contact);
 }
 
 function handleDelete(id){
@@ -46,7 +77,7 @@ function handleDelete(id){
 }
 
 function updateUI() {
-    renderContacts(getContacts(), handleDelete);
+    renderContacts(getContacts(), handleEdit, handleDelete);
 }
 
 init();
