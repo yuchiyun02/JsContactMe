@@ -40,6 +40,7 @@ export function openEditContactModal(contact) {
 export function closeContactModal() {
     document.getElementById("contactModal").classList.add("hidden");
     clearContactForm();
+    clearValidationErrors();
     setModalMode("add");
 }
 
@@ -47,6 +48,37 @@ export function clearContactForm() {
     document.getElementById("name").value = "";
     document.getElementById("phone").value = "";
     document.getElementById("email").value = "";
+}
+
+export function showValidationErrors(errors) {
+    const errorName = document.getElementById("errorName");
+    const errorPhone = document.getElementById("errorPhone");
+    const errorEmail = document.getElementById("errorEmail");
+
+    errorName.removeAttribute("data-visible");
+    errorPhone.removeAttribute("data-visible");
+    errorEmail.removeAttribute("data-visible");
+
+    if (errors.name) {
+        errorName.textContent = errors.name;
+        errorName.setAttribute("data-visible", "true");
+    }
+
+    if (errors.phone) {
+        errorPhone.textContent = errors.phone;
+        errorPhone.setAttribute("data-visible", "true");
+    }
+
+    if (errors.email) {
+        errorEmail.textContent = errors.email;
+        errorEmail.setAttribute("data-visible", "true");
+    }
+}
+
+export function clearValidationErrors() {
+    document.getElementById("errorName").removeAttribute("data-visible");
+    document.getElementById("errorPhone").removeAttribute("data-visible");
+    document.getElementById("errorEmail").removeAttribute("data-visible");
 }
 
 export function getContactFormValues() {

@@ -7,7 +7,7 @@ import {
     setPersistenceEnabled,
     updateContact,
     searchContacts,
-    checkDuplicates
+    validateContact
 } from "./contactService.js";
 import {
     renderContacts,
@@ -16,12 +16,11 @@ import {
     closeContactModal,
     getContactFormValues,
     getSearchQuery,
-    setPersistenceToggleState
+    setPersistenceToggleState,
+    showValidationErrors
 } from "./ui.js";
 
 let editingContactId = null;
-let phoneRegex = /^(\+?6?01)[0|1|2|3|4|6|7|8|9]\-*[0-9]{7,8}$/;
-let emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 function init() {
     document.getElementById("openModalBtn").onclick = handleOpenAddModal;
@@ -48,34 +47,10 @@ function handleCloseModal() {
 function handleAdd() {
     const { name, phone, email } = getContactFormValues();
 
-    const errorPhone = document.getElementById("errorPhone");
-    const errorEmail = document.getElementById("errorEmail");
-    errorPhone.removeAttribute("data-visible");
-    errorEmail.removeAttribute("data-visible");
+    const errors = validateContact(name, phone, email, editingContactId);
+    showValidationErrors(errors);
 
-    let hasError = false;
-
-    if (!phoneRegex.test(phone)) {
-        errorPhone.textContent = "Invalid phone number. Use Malaysian format, e.g. 01X-XXXXXXX";
-        errorPhone.setAttribute("data-visible", "true");
-        hasError = true;
-    } else if (checkDuplicates(phone, "phone")) {
-        errorPhone.textContent = "This phone number is already in your contacts.";
-        errorPhone.setAttribute("data-visible", "true");
-        hasError = true;
-    }
-
-    if (!emailRegex.test(email)) {
-        errorEmail.textContent = "Invalid email address. Use format user@domain.com";
-        errorEmail.setAttribute("data-visible", "true");
-        hasError = true;
-    } else if (checkDuplicates(email, "email")) {
-        errorEmail.textContent = "This email address is already in your contacts.";
-        errorEmail.setAttribute("data-visible", "true");
-        hasError = true;
-    }
-
-    if (!name || hasError) {
+    if (Object.keys(errors).length > 0) {
         return;
     }
 
