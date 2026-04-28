@@ -2,7 +2,7 @@ let contacts = [];
 let contId = 1;
 const CONTACTS_STORAGE_KEY = "contacts";
 const PERSISTENCE_STORAGE_KEY = "persistence-enabled";
-const phoneRegex = /^(\+?6?01)[0|1|2|3|4|6|7|8|9]\-*[0-9]{7,8}$/;
+const phoneRegex = /^(\+?6?01)[0|1|2|3|4|5|6|7|8|9]\-*[0-9]{7,8}$/;
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 function normalizeName(name) {
