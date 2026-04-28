@@ -10,11 +10,21 @@
 <body>
     <div class="container">
         <div class="app-header">
-            <img src="assets/images/logo.png" alt="JsContactMe logo" class="app-logo">
-            <div class="app-title">
-                <span class="app-badge">Interview Assessment - Cheong Eu Joon</span>
-                <h1>JsContactMe</h1>
-                <p>"Just Contact Me" - A simple contact manager built in JavaScript</p>
+            <div class="app-header-main">
+                <img src="assets/images/logo.png" alt="JsContactMe logo" class="app-logo">
+                <div class="app-title">
+                    <span class="app-badge">Interview Assessment - Cheong Eu Joon</span>
+                    <h1>JsContactMe</h1>
+                    <p>"Just Contact Me" - A simple contact manager built in JavaScript</p>
+                </div>
+            </div>
+            <div class="persistence-control" id="persistenceControl">
+                <span class="persistence-label" id="persistenceLabel">Persistence On</span>
+                <span class="persistence-tooltip" id="persistenceDescription" role="tooltip">Contacts are currently saved in local storage.</span>
+                <label class="toggle-switch" for="persistenceToggle">
+                    <input type="checkbox" id="persistenceToggle" checked>
+                    <span class="toggle-slider"></span>
+                </label>
             </div>
         </div>
 

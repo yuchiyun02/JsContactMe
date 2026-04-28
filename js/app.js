@@ -3,6 +3,8 @@ import {
     getContactById,
     getContacts, 
     deleteContact, 
+    isPersistenceEnabled,
+    setPersistenceEnabled,
     updateContact,
     searchContacts 
 } from "./contactService.js";
@@ -12,7 +14,8 @@ import {
     openEditContactModal,
     closeContactModal,
     getContactFormValues,
-    getSearchQuery
+    getSearchQuery,
+    setPersistenceToggleState
 } from "./ui.js";
 
 let editingContactId = null;
@@ -23,7 +26,9 @@ function init() {
     document.getElementById("modalBackdrop").onclick = handleCloseModal;
     document.getElementById("addBtn").onclick = handleAdd;
     document.getElementById("search").oninput = handleSearch;
+    document.getElementById("persistenceToggle").onchange = handlePersistenceToggle;
 
+    setPersistenceToggleState(isPersistenceEnabled());
     updateUI();
 }
 
@@ -73,6 +78,13 @@ function handleEdit(id) {
 
 function handleDelete(id){
     deleteContact(id);
+    updateUI();
+}
+
+function handlePersistenceToggle(event) {
+    const enabled = event.target.checked;
+    setPersistenceEnabled(enabled);
+    setPersistenceToggleState(enabled);
     updateUI();
 }
 

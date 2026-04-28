@@ -80,3 +80,13 @@ export function setModalMode(mode) {
     modalTitle.textContent = "Add Contact";
     submitButton.textContent = "Save Contact";
 }
+
+export function setPersistenceToggleState(enabled) {
+    document.getElementById("persistenceToggle").checked = enabled;
+    document.getElementById("persistenceLabel").textContent = enabled
+        ? "Persistence On"
+        : "Memory Only";
+    document.getElementById("persistenceDescription").textContent = enabled
+        ? "Contacts are currently saved in local storage."
+        : "Contacts stay in memory only and reset on refresh.";
+}

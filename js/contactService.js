@@ -1,20 +1,30 @@
 let contacts = [];
 let contId = 1;
+let persistenceEnabled = false;
+const CONTACTS_STORAGE_KEY = "contacts";
+
+function getNextId(list) {
+    return list.length > 0
+        ? Math.max(...list.map(contact => contact.id)) + 1
+        : 1;
+}
 
 function load() {
-    const data = localStorage.getItem("contacts");
-
-    contacts = data 
-    ? JSON.parse(data) 
-    : [];
-
-    contId = contacts.length > 0
-    ? Math.max(...contacts.map(c => c.id)) + 1
-    : 1;
+    if (persistenceEnabled) {
+        const data = localStorage.getItem(CONTACTS_STORAGE_KEY);
+        contacts = data
+            ? JSON.parse(data)
+            : [];
+        contId = getNextId(contacts);
+    }
 }
 
 function save() {
-    localStorage.setItem("contacts", JSON.stringify(contacts));
+    if (!persistenceEnabled) {
+        return;
+    }
+
+    localStorage.setItem(CONTACTS_STORAGE_KEY, JSON.stringify(contacts));
 }
 
 export function addContact(name, phone, email) {
@@ -64,6 +74,22 @@ export function searchContacts(query) {
     return contacts.filter(contact =>
         contact.name.toLowerCase().includes(lowerQuery)
     );
+}
+
+export function isPersistenceEnabled() {
+    return persistenceEnabled;
+}
+
+export function setPersistenceEnabled(enabled) {
+    persistenceEnabled = enabled;
+
+    if (persistenceEnabled) {
+        if (contacts.length === 0) {
+            load();
+        }
+
+        save();
+    }
 }
 
 load();

@@ -74,9 +74,16 @@ body {
 .app-header {
     display: flex;
     align-items: center;
+    justify-content: space-between;
     gap: 20px;
     padding-bottom: 24px;
     border-bottom: 1px solid var(--line);
+}
+
+.app-header-main {
+    display: flex;
+    align-items: center;
+    gap: 20px;
 }
 
 .app-logo {
@@ -110,6 +117,94 @@ body {
     letter-spacing: 0.04em;
     text-transform: uppercase;
     border: 1px solid var(--line-primary);
+}
+
+.persistence-control {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.persistence-label {
+    font-size: 0.82rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--primary);
+}
+
+.persistence-tooltip {
+    position: absolute;
+    top: calc(100% + 10px);
+    right: 0;
+    width: 240px;
+    padding: 10px 12px;
+    margin: 0;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    background: var(--surface-modal);
+    color: var(--text-soft);
+    font-size: 0.88rem;
+    line-height: 1.4;
+    box-shadow: var(--shadow-soft);
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(-4px);
+    transition: opacity 0.18s ease, transform 0.18s ease;
+    z-index: 3;
+}
+
+.persistence-control:hover .persistence-tooltip {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.toggle-switch {
+    position: relative;
+    display: inline-flex;
+    width: 52px;
+    height: 30px;
+    flex-shrink: 0;
+    cursor: pointer;
+}
+
+.toggle-switch input {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.toggle-slider {
+    position: absolute;
+    inset: 0;
+    border: 1px solid var(--line-strong);
+    border-radius: 999px;
+    background: var(--surface-input);
+    transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+.toggle-slider::before {
+    content: "";
+    position: absolute;
+    top: 3px;
+    left: 4px;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: var(--text-soft);
+    box-shadow: var(--shadow-soft);
+    transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.toggle-switch input:checked + .toggle-slider {
+    background: var(--primary-soft);
+    border-color: var(--line-primary);
+}
+
+.toggle-switch input:checked + .toggle-slider::before {
+    transform: translateX(21px);
+    background: var(--primary);
 }
 
 h1 {
@@ -330,6 +425,11 @@ tbody tr:hover {
 
     .app-header {
         align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .app-header-main {
+        align-items: flex-start;
     }
 
     .app-logo {
@@ -340,6 +440,17 @@ tbody tr:hover {
 
     .app-title {
         min-height: 56px;
+    }
+
+    .persistence-control {
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .persistence-tooltip {
+        left: 0;
+        right: auto;
+        width: min(100%, 260px);
     }
 
     .toolbar {
