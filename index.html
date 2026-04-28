@@ -12,6 +12,7 @@
         <div class="app-header">
             <img src="assets/images/logo.png" alt="JsContactMe logo" class="app-logo">
             <div class="app-title">
+                <span class="app-badge">Interview Assessment - Cheong Eu Joon</span>
                 <h1>JsContactMe</h1>
                 <p>"Just Contact Me" - A simple contact manager built in JavaScript</p>
             </div>
@@ -24,19 +25,20 @@
             <button id="openModalBtn">Add Contact</button>
         </div>
 
-        <!-- Contact Table -->
-        <table>
-            <thead>
-            <tr>
-                <th>ID</th>
-                <th>Name</th>
-                <th>Phone</th>
-                <th>Email</th>
-                <th>Action</th>
-            </tr>
-            </thead>
-            <tbody id="contactList"></tbody>
-        </table>
+        <div class="table-card">
+            <table>
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Phone</th>
+                    <th>Email</th>
+                    <th>Action</th>
+                </tr>
+                </thead>
+                <tbody id="contactList"></tbody>
+            </table>
+        </div>
     </div>
 
     <div class="modal hidden" id="contactModal">
