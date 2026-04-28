@@ -1,7 +1,17 @@
 let contacts = [];
 let contId = 1;
-let persistenceEnabled = false;
 const CONTACTS_STORAGE_KEY = "contacts";
+const PERSISTENCE_STORAGE_KEY = "persistence-enabled";
+
+function readPersistencePreference() {
+    return localStorage.getItem(PERSISTENCE_STORAGE_KEY) === "true";
+}
+
+function writePersistencePreference(enabled) {
+    localStorage.setItem(PERSISTENCE_STORAGE_KEY, String(enabled));
+}
+
+let persistenceEnabled = readPersistencePreference();
 
 function getNextId(list) {
     return list.length > 0
@@ -16,7 +26,11 @@ function load() {
             ? JSON.parse(data)
             : [];
         contId = getNextId(contacts);
+        return;
     }
+
+    contacts = [];
+    contId = 1;
 }
 
 function save() {
@@ -77,17 +91,16 @@ export function searchContacts(query) {
 }
 
 export function isPersistenceEnabled() {
+    persistenceEnabled = readPersistencePreference();
     return persistenceEnabled;
 }
 
 export function setPersistenceEnabled(enabled) {
     persistenceEnabled = enabled;
+    writePersistencePreference(enabled);
 
     if (persistenceEnabled) {
-        if (contacts.length === 0) {
-            load();
-        }
-
+        load();
         save();
         return;
     }
