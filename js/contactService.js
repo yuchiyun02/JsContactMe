@@ -105,20 +105,24 @@ export function validateContact(name, phone, email, excludeId = null) {
         errors.name = "Name is required.";
     }
 
-    if (!phoneRegex.test(phone)) {
-        errors.phone = "Invalid phone number. Use Malaysian format, e.g. 01X-XXXXXXX";
-    } else if (contacts.some(c => c.phone === normalizePhone(phone) && c.id !== excludeId)) {
-        errors.phone = "This phone number is already in your contacts.";
-    } else if (!phone) {
+    if (!phone) {
         errors.phone = "Phone Number is required.";
     }
+    else if (!phoneRegex.test(phone)) {
+        errors.phone = "Invalid phone number. Use Malaysian format, e.g. 01X-XXXXXXX";
+    } 
+    else if (contacts.some(c => c.phone === normalizePhone(phone) && c.id !== excludeId)) {
+        errors.phone = "This phone number is already in your contacts.";
+    }
 
-    if (!emailRegex.test(email)) {
-        errors.email = "Invalid email address. Use format user@domain.com";
-    } else if (contacts.some(c => c.email === email && c.id !== excludeId)) {
-        errors.email = "This email address is already in your contacts.";
-    } else if (!email) {
+    if (!email) {
         errors.email = "Email is required.";
+    }
+    else if (!emailRegex.test(email)) {
+        errors.email = "Invalid email address. Use format user@domain.com";
+    } 
+    else if (contacts.some(c => c.email === email && c.id !== excludeId)) {
+        errors.email = "This email address is already in your contacts.";
     }
 
     return errors;
