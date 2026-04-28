@@ -5,6 +5,12 @@ const PERSISTENCE_STORAGE_KEY = "persistence-enabled";
 const phoneRegex = /^(\+?6?01)[0|1|2|3|4|6|7|8|9]\-*[0-9]{7,8}$/;
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
+function normalizePhone(phone) {
+    const digits = phone.replace(/\D/g, "");
+    const local = digits.startsWith("6") ? digits.slice(1) : digits;
+    return local.slice(0, 3) + "-" + local.slice(3);
+}
+
 function readPersistencePreference() {
     return localStorage.getItem(PERSISTENCE_STORAGE_KEY) === "true";
 }
@@ -47,7 +53,7 @@ export function addContact(name, phone, email) {
     const contact = {
         id : contId++,
         name,
-        phone,
+        phone: normalizePhone(phone),
         email
     }
 
@@ -76,7 +82,7 @@ export function updateContact(id, name, phone, email) {
     }
 
     contact.name = name;
-    contact.phone = phone;
+    contact.phone = normalizePhone(phone);
     contact.email = email;
     save();
 }
