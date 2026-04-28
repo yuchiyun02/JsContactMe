@@ -100,13 +100,10 @@ export function setPersistenceEnabled(enabled) {
     writePersistencePreference(enabled);
 
     if (persistenceEnabled) {
-        load();
         save();
         return;
     }
 
-    contacts = [];
-    contId = 1;
     localStorage.removeItem(CONTACTS_STORAGE_KEY);
 }
 
