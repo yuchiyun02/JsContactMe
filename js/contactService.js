@@ -5,10 +5,20 @@ const PERSISTENCE_STORAGE_KEY = "persistence-enabled";
 const phoneRegex = /^(\+?6?01)[0|1|2|3|4|6|7|8|9]\-*[0-9]{7,8}$/;
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
+function normalizeName(name) {
+  return name.toLowerCase().split(' ').map(word => {
+    return word.charAt(0).toUpperCase() + word.slice(1);
+  }).join(' ');
+}
+
 function normalizePhone(phone) {
     const digits = phone.replace(/\D/g, "");
     const local = digits.startsWith("6") ? digits.slice(1) : digits;
     return local.slice(0, 3) + "-" + local.slice(3);
+}
+
+function normalizeEmail(email) {
+    return email.toLowerCase().trim();
 }
 
 function readPersistencePreference() {
@@ -52,9 +62,9 @@ function save() {
 export function addContact(name, phone, email) {
     const contact = {
         id : contId++,
-        name,
+        name: normalizeName(name),
         phone: normalizePhone(phone),
-        email
+        email: normalizeEmail(email),
     }
 
     contacts.push(contact); //latest first
@@ -81,9 +91,9 @@ export function updateContact(id, name, phone, email) {
         return;
     }
 
-    contact.name = name;
+    contact.name = normalize(name);
     contact.phone = normalizePhone(phone);
-    contact.email = email;
+    contact.email = normalizeEmail(email);
     save();
 }
 
@@ -121,7 +131,7 @@ export function validateContact(name, phone, email, excludeId = null) {
     else if (!emailRegex.test(email)) {
         errors.email = "Invalid email address. Use format user@domain.com";
     } 
-    else if (contacts.some(c => c.email === email && c.id !== excludeId)) {
+    else if (contacts.some(c => c.email === normalizeEmail(email) && c.id !== excludeId)) {
         errors.email = "This email address is already in your contacts.";
     }
 
