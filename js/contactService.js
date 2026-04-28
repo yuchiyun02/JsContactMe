@@ -89,7 +89,12 @@ export function setPersistenceEnabled(enabled) {
         }
 
         save();
+        return;
     }
+
+    contacts = [];
+    contId = 1;
+    localStorage.removeItem(CONTACTS_STORAGE_KEY);
 }
 
 load();

@@ -83,6 +83,18 @@ function handleDelete(id){
 
 function handlePersistenceToggle(event) {
     const enabled = event.target.checked;
+
+    if (!enabled) {
+        const confirmed = window.confirm(
+            "Turning persistence off will clear all saved contacts from local storage. Do you want to continue?"
+        );
+
+        if (!confirmed) {
+            setPersistenceToggleState(true);
+            return;
+        }
+    }
+
     setPersistenceEnabled(enabled);
     setPersistenceToggleState(enabled);
     updateUI();
