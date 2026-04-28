@@ -416,6 +416,7 @@ tbody tr:hover {
     margin-top: 22px;
 }
 
+/* Simple UI Responsiveness */
 @media (max-width: 640px) {
     .container {
         margin: 20px 14px;

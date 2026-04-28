@@ -19,6 +19,8 @@ https://github.com/yuchiyun02/JsContactMe
 - Search contacts by name
 - Edit an existing contact through the same modal form
 - Delete a contact directly from the table
+- In-memory mode enabled by default to match the project requirement
+- Optional persistence toggle to store contacts in `localStorage`
 - Responsive UI for desktop and smaller screens
 
 ## Contact Model
@@ -82,6 +84,24 @@ The codebase is split into small modules to keep responsibilities clear:
 4. Each table row includes actions for editing and deleting a contact.
 5. Editing reuses the modal with prefilled values for the selected record.
 
+## Data Handling
+
+By default, the application runs in memory-only mode, which aligns with the original project requirement for client-side in-memory data handling.
+
+An optional persistence toggle is available in the top section of the interface:
+
+- `Memory Only`
+  Contacts exist only for the current session and are cleared on refresh.
+
+- `Persistence On`
+  Contacts are stored in `localStorage` and remain available after refreshing the page.
+
+Turning persistence off is a destructive action:
+
+- a confirmation prompt is shown first
+- confirming the action clears saved `localStorage` contacts
+- the current visible contact list is reset
+
 ## Running The Project
 
 Because the app uses JavaScript modules, it should be served through a local server or opened through a hosted project link rather than double-clicking `index.html`.
@@ -105,6 +125,7 @@ Example options:
 ## Notes
 
 - Data is managed on the client side.
+- In-memory mode is the default behavior.
 - The application uses modular JavaScript for separation of concerns.
 - The UI is intentionally compact and easy to present in a short walkthrough.
 
