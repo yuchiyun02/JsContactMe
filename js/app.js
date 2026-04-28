@@ -106,7 +106,8 @@ function handlePersistenceToggle(event) {
 }
 
 function updateUI() {
-    renderContacts(getContacts(), handleEdit, handleDelete);
+    const query = getSearchQuery();
+    renderContacts(searchContacts(query), handleEdit, handleDelete);
 }
 
 init();

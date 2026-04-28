@@ -91,7 +91,7 @@ export function updateContact(id, name, phone, email) {
         return;
     }
 
-    contact.name = normalize(name);
+    contact.name = normalizeName(name);
     contact.phone = normalizePhone(phone);
     contact.email = normalizeEmail(email);
     save();
