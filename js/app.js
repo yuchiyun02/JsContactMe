@@ -1,12 +1,13 @@
-import { 
-    addContact, 
+import {
+    addContact,
     getContactById,
-    getContacts, 
-    deleteContact, 
+    getContacts,
+    deleteContact,
     isPersistenceEnabled,
     setPersistenceEnabled,
     updateContact,
-    searchContacts 
+    searchContacts,
+    checkDuplicates
 } from "./contactService.js";
 import {
     renderContacts,
@@ -55,11 +56,21 @@ function handleAdd() {
     let hasError = false;
 
     if (!phoneRegex.test(phone)) {
+        errorPhone.textContent = "Invalid phone number. Use Malaysian format, e.g. 01X-XXXXXXX";
+        errorPhone.setAttribute("data-visible", "true");
+        hasError = true;
+    } else if (checkDuplicates(phone, "phone")) {
+        errorPhone.textContent = "This phone number is already in your contacts.";
         errorPhone.setAttribute("data-visible", "true");
         hasError = true;
     }
 
     if (!emailRegex.test(email)) {
+        errorEmail.textContent = "Invalid email address. Use format user@domain.com";
+        errorEmail.setAttribute("data-visible", "true");
+        hasError = true;
+    } else if (checkDuplicates(email, "email")) {
+        errorEmail.textContent = "This email address is already in your contacts.";
         errorEmail.setAttribute("data-visible", "true");
         hasError = true;
     }

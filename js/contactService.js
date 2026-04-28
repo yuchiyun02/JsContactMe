@@ -90,6 +90,14 @@ export function searchContacts(query) {
     );
 }
 
+export function checkDuplicates(input, attr) {
+    if (!input) {
+        return false;
+    }
+
+    return contacts.some(contact => contact[attr] === input);
+}
+
 export function isPersistenceEnabled() {
     persistenceEnabled = readPersistencePreference();
     return persistenceEnabled;
