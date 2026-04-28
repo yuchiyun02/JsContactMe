@@ -263,6 +263,30 @@ input:focus {
     gap: 14px;
 }
 
+.validation-block {
+    display: none;
+    align-items: center;
+    gap: 8px;
+    padding: 9px 13px;
+    margin-top: -6px;
+    border: 1px solid var(--line-danger);
+    border-radius: 10px;
+    background: var(--danger-soft);
+    color: var(--danger-text);
+    font-size: 0.82rem;
+    line-height: 1.4;
+}
+
+.validation-block::before {
+    content: "⚠";
+    font-size: 0.9rem;
+    flex-shrink: 0;
+}
+
+.validation-block[data-visible="true"] {
+    display: flex;
+}
+
 button {
     padding: 14px 18px;
     border: none;

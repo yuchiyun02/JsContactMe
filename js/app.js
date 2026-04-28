@@ -19,6 +19,8 @@ import {
 } from "./ui.js";
 
 let editingContactId = null;
+let phoneRegex = /^(\+?6?01)[0|1|2|3|4|6|7|8|9]\-*[0-9]{7,8}$/;
+let emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 function init() {
     document.getElementById("openModalBtn").onclick = handleOpenAddModal;
@@ -45,8 +47,24 @@ function handleCloseModal() {
 function handleAdd() {
     const { name, phone, email } = getContactFormValues();
 
-    if (!name || !phone || !email) {
-        alert("Please enter all fields")
+    const errorPhone = document.getElementById("errorPhone");
+    const errorEmail = document.getElementById("errorEmail");
+    errorPhone.removeAttribute("data-visible");
+    errorEmail.removeAttribute("data-visible");
+
+    let hasError = false;
+
+    if (!phoneRegex.test(phone)) {
+        errorPhone.setAttribute("data-visible", "true");
+        hasError = true;
+    }
+
+    if (!emailRegex.test(email)) {
+        errorEmail.setAttribute("data-visible", "true");
+        hasError = true;
+    }
+
+    if (!name || hasError) {
         return;
     }
 

@@ -58,7 +58,9 @@
             <div class="form">
                 <input type="text" id="name" placeholder="Name">
                 <input type="text" id="phone" placeholder="Phone">
+                <div class="validation-block" id="errorPhone" aria-live="polite">Invalid phone number. Use Malaysian format, e.g. 01X-XXXXXXX</div>
                 <input type="email" id="email" placeholder="Email">
+                <div class="validation-block" id="errorEmail" aria-live="polite">Invalid email address. Use format user@domain.com</div>
             </div>
             <div class="modal-actions">
                 <button id="closeModalBtn" class="secondary-btn">Cancel</button>
