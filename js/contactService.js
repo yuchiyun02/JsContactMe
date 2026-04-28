@@ -107,7 +107,7 @@ export function validateContact(name, phone, email, excludeId = null) {
 
     if (!phoneRegex.test(phone)) {
         errors.phone = "Invalid phone number. Use Malaysian format, e.g. 01X-XXXXXXX";
-    } else if (contacts.some(c => c.phone === phone && c.id !== excludeId)) {
+    } else if (contacts.some(c => c.phone === normalizePhone(phone) && c.id !== excludeId)) {
         errors.phone = "This phone number is already in your contacts.";
     } else if (!phone) {
         errors.phone = "Phone Number is required.";
