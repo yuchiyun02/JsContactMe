@@ -95,7 +95,7 @@ export function checkDuplicates(input, attr) {
         return false;
     }
 
-    return contacts.some(contact => contact[attr] === input);
+    return contacts.some(contact => contact.attr === input);
 }
 
 export function isPersistenceEnabled() {
